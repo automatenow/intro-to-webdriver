@@ -2,6 +2,9 @@ package io.automatenow.pages;
 
 import org.openqa.selenium.By;
 
+/**
+ * @author Marco A. Cruz
+ */
 public class HomePage extends BasePage {
     By welcomeMsg = By.xpath("//p[text()='Welcome to AUTOMATENOW! ']");
 

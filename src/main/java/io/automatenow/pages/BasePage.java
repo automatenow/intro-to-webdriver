@@ -1,6 +1,7 @@
 package io.automatenow.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -9,6 +10,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
+/**
+ * @author Marco A. Cruz
+ */
 public class BasePage {
     protected static WebDriver driver;
 
@@ -61,5 +65,24 @@ public class BasePage {
             return false;
         }
         return true;
+    }
+
+    public void setText(By locator, String text) {
+        driver.findElement(locator).clear();
+        driver.findElement(locator).sendKeys(text);
+        tab(locator);
+    }
+
+    public void tab(By locator) {
+        driver.findElement(locator).sendKeys(Keys.TAB);
+    }
+
+    public String getText(By locator) {
+        String displayedText = driver.findElement(locator).getText();
+        if (displayedText.isEmpty()) {
+            return driver.findElement(locator).getAttribute("value");
+        } else {
+            return displayedText;
+        }
     }
 }

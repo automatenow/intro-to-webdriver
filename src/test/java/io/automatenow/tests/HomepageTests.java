@@ -4,6 +4,9 @@ import io.automatenow.pages.HomePage;
 import org.testng.Assert;
 import org.testng.annotations.*;
 
+/**
+ * @author Marco A. Cruz
+ */
 public class HomepageTests extends BaseTest {
     HomePage homePage = new HomePage();
 

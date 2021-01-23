@@ -5,6 +5,9 @@ import org.testng.Assert;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 
+/**
+ * @author Marco A. Cruz
+ */
 public class BaseTest extends BasePage {
 
     @BeforeSuite
