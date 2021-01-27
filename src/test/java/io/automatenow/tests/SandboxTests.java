@@ -35,4 +35,11 @@ public class SandboxTests extends BaseTest {
         assertTrue(sandboxPage.checkboxIsSelected("1"), "Checkbox is not selected");
         assertFalse(sandboxPage.checkboxIsSelected("2"), "Checkbox is selected");
     }
+
+    @Test(description = "Selects from a drop-down")
+    public void testSelectFromDropdown() {
+        String myOption = "Binary";
+        sandboxPage.selectFromDropdown(myOption);
+        assertEquals(sandboxPage.getDropdownText(), myOption, "Dropdown option not selected");
+    }
 }
