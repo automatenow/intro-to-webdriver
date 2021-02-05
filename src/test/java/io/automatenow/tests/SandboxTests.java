@@ -42,4 +42,17 @@ public class SandboxTests extends BaseTest {
         sandboxPage.selectFromDropdown(myOption);
         assertEquals(sandboxPage.getDropdownText(), myOption, "Dropdown option not selected");
     }
+
+    @Test(description = "Selects radio buttons")
+    public void testSelectRadioButton() {
+        String radio = "White";
+        String radio2 = "Blue";
+
+        sandboxPage.selectRadioButton(radio);
+        assertTrue(sandboxPage.radioButtonIsSelected(radio), "White option was not selected");
+
+        sandboxPage.selectRadioButton(radio2);
+        assertTrue(sandboxPage.radioButtonIsSelected(radio2), "Blue option was not selected");
+        assertFalse(sandboxPage.radioButtonIsSelected(radio), "White option was selected");
+    }
 }

@@ -56,4 +56,18 @@ public class SandboxPage extends BasePage {
         Select dDown = new Select(driver.findElement(dropDown));
         return dDown.getFirstSelectedOption().getText();
     }
+
+    /**
+     * Selects a radio button
+     *
+     * @param option Case sensitive value
+     */
+    public SandboxPage selectRadioButton(String option) {
+        driver.findElement(By.cssSelector("input[value='" + option + "']")).click();
+        return this;
+    }
+
+    public boolean radioButtonIsSelected(String option) {
+        return driver.findElement(By.cssSelector("input[value='" + option + "']")).isSelected();
+    }
 }
