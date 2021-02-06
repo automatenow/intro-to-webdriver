@@ -55,4 +55,13 @@ public class SandboxTests extends BaseTest {
         assertTrue(sandboxPage.radioButtonIsSelected(radio2), "Blue option was not selected");
         assertFalse(sandboxPage.radioButtonIsSelected(radio), "White option was selected");
     }
+
+    @Test(description = "Finds the price of an item in a table")
+    public void testItemPrice() {
+        String itemPrice = sandboxPage.getItemPrice("Laptop");
+        assertEquals(itemPrice, "$1200.00", "Laptop price was incorrect");
+
+        itemPrice = sandboxPage.getItemPrice("Oranges");
+        assertEquals(itemPrice, "$3.99", "Oranges price was incorrect");
+    }
 }

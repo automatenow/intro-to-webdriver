@@ -70,4 +70,8 @@ public class SandboxPage extends BasePage {
     public boolean radioButtonIsSelected(String option) {
         return driver.findElement(By.cssSelector("input[value='" + option + "']")).isSelected();
     }
+
+    public String getItemPrice(String item) {
+        return driver.findElement(By.xpath("//td[text()='" + item + "']/following-sibling::td")).getText();
+    }
 }
