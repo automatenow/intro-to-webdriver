@@ -1,7 +1,6 @@
 package io.automatenow.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 /**
@@ -10,6 +9,10 @@ import org.openqa.selenium.support.ui.Select;
 public class SandboxPage extends BasePage {
     private By inputField = By.id("g399-inputfield");
     private By dropDown = By.id("dd");
+    private By calendarYear = By.xpath("//span[@class='ui-datepicker-year']");
+    private By calendarMonth = By.xpath("//span[@class='ui-datepicker-month']");
+    private By calendarField = By.id("g399-date");
+    private By calendarRightArrow = By.xpath("//a[@title='Next']");
 
     public String getPageTitle() {
         return driver.getTitle();
@@ -73,5 +76,25 @@ public class SandboxPage extends BasePage {
 
     public String getItemPrice(String item) {
         return driver.findElement(By.xpath("//td[text()='" + item + "']/following-sibling::td")).getText();
+    }
+
+    public SandboxPage setDate(String month, String day, String year) {
+        driver.findElement(calendarField).click();
+
+        while (true) {
+            String currentMonth = getText(calendarMonth);
+            String currentYear = getText(calendarYear);
+            if (currentMonth.equals(month) && currentYear.equals(year)) {
+                break;
+            }
+            driver.findElement(calendarRightArrow).click();
+        }
+
+        driver.findElement(By.xpath("//table//a[text()='" + day + "']")).click();
+        return this;
+    }
+
+    public String getDate() {
+        return getText(calendarField);
     }
 }

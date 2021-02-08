@@ -64,4 +64,11 @@ public class SandboxTests extends BaseTest {
         itemPrice = sandboxPage.getItemPrice("Oranges");
         assertEquals(itemPrice, "$3.99", "Oranges price was incorrect");
     }
+
+    @Test(description = "Selects a date from a date picker")
+    public void testSelectFromDatePicker() {
+        sandboxPage.setDate("July", "4", "2021");
+        String date = sandboxPage.getDate();
+        assertEquals(date, "July 4, 2021", "The date was not properly set");
+    }
 }
