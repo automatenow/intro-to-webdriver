@@ -71,4 +71,13 @@ public class SandboxTests extends BaseTest {
         String date = sandboxPage.getDate();
         assertEquals(date, "July 4, 2021", "The date was not properly set");
     }
+
+    @Test(description = "Searches for a blog article")
+    public void testBlogSearch() {
+        boolean search;
+        search = sandboxPage.search("aaaa");
+        assertFalse(search, "Did not expect to find a search result");
+        search = sandboxPage.search("jmeter");
+        assertTrue(search, "Expected to find a search result");
+    }
 }

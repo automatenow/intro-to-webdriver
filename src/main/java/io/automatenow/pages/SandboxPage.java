@@ -13,6 +13,9 @@ public class SandboxPage extends BasePage {
     private By calendarMonth = By.xpath("//span[@class='ui-datepicker-month']");
     private By calendarField = By.id("g399-date");
     private By calendarRightArrow = By.xpath("//a[@title='Next']");
+    private By searchBox = By.id("wp-block-search__input-1");
+    private By searchBtn = By.xpath("//button[text()='Search']");
+    private By noSearchResults = By.xpath("//h1[text()='Nothing Found']");
 
     public String getPageTitle() {
         return driver.getTitle();
@@ -33,7 +36,7 @@ public class SandboxPage extends BasePage {
      * @param option Range is 1 to 3
      */
     public SandboxPage selectCheckbox(String option) {
-        driver.findElement(By.xpath("//input[@value='Option " + option + "']")).click();
+        click(By.xpath("//input[@value='Option " + option + "']"));
         return this;
     }
 
@@ -66,7 +69,7 @@ public class SandboxPage extends BasePage {
      * @param option Case sensitive value
      */
     public SandboxPage selectRadioButton(String option) {
-        driver.findElement(By.cssSelector("input[value='" + option + "']")).click();
+        click(By.cssSelector("input[value='" + option + "']"));
         return this;
     }
 
@@ -79,7 +82,7 @@ public class SandboxPage extends BasePage {
     }
 
     public SandboxPage setDate(String month, String day, String year) {
-        driver.findElement(calendarField).click();
+        click(calendarField);
 
         while (true) {
             String currentMonth = getText(calendarMonth);
@@ -87,14 +90,25 @@ public class SandboxPage extends BasePage {
             if (currentMonth.equals(month) && currentYear.equals(year)) {
                 break;
             }
-            driver.findElement(calendarRightArrow).click();
+            click(calendarRightArrow);
         }
 
-        driver.findElement(By.xpath("//table//a[text()='" + day + "']")).click();
+        click(By.xpath("//table//a[text()='" + day + "']"));
         return this;
     }
 
     public String getDate() {
         return getText(calendarField);
+    }
+
+    public boolean search(String text) {
+        setText(searchBox, text);
+        click(searchBtn);
+
+        if (driver.findElements(noSearchResults).size() > 0) {
+            goBack();
+            return false;
+        }
+        return true;
     }
 }

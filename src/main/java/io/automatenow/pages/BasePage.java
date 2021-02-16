@@ -85,4 +85,12 @@ public class BasePage {
             return displayedText;
         }
     }
+
+    public void click(By locator) {
+        driver.findElement(locator).click();
+    }
+
+    public void goBack() {
+        driver.navigate().back();
+    }
 }
