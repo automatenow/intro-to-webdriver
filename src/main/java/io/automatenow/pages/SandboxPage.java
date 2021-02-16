@@ -3,6 +3,9 @@ package io.automatenow.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  * @author Marco A. Cruz
  */
@@ -16,6 +19,7 @@ public class SandboxPage extends BasePage {
     private By searchBox = By.id("wp-block-search__input-1");
     private By searchBtn = By.xpath("//button[text()='Search']");
     private By noSearchResults = By.xpath("//h1[text()='Nothing Found']");
+    private By twitterBtn = By.xpath("//span[text()='Twitter']");
 
     public String getPageTitle() {
         return driver.getTitle();
@@ -110,5 +114,27 @@ public class SandboxPage extends BasePage {
             return false;
         }
         return true;
+    }
+
+    public void clickTwitterButton() {
+        click(twitterBtn);
+    }
+
+    public void switchToNewWindow() {
+        // Get current window handle
+        String currentWindow = getWindowHandle();
+
+        // Get all window handles
+        Set<String> handles = getWindowHandles();
+
+        // Switch to new window
+        Iterator<String> iter = handles.iterator();
+        String newWindow = null;
+        while (iter.hasNext()) {
+            newWindow = iter.next();
+            if (!currentWindow.equals(newWindow)) {
+                driver.switchTo().window(newWindow);
+            }
+        }
     }
 }

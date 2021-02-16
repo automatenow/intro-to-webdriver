@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * @author Marco A. Cruz
@@ -92,5 +93,13 @@ public class BasePage {
 
     public void goBack() {
         driver.navigate().back();
+    }
+
+    public String getWindowHandle() {
+        return driver.getWindowHandle();
+    }
+
+    public Set<String> getWindowHandles() {
+        return driver.getWindowHandles();
     }
 }

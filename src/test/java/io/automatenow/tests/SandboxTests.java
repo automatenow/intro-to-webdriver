@@ -80,4 +80,12 @@ public class SandboxTests extends BaseTest {
         search = sandboxPage.search("jmeter");
         assertTrue(search, "Expected to find a search result");
     }
+
+    @Test(description = "Working with multiple open windows")
+    public void testMultipleOpenWindows() {
+        sandboxPage.clickTwitterButton();
+        sandboxPage.switchToNewWindow();
+        String pageTitle = sandboxPage.getPageTitle();
+        assertTrue(pageTitle.contains("Twitter"), "The new window's tile does not match");
+    }
 }
