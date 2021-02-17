@@ -55,6 +55,10 @@ public class BasePage {
         driver.quit();
     }
 
+    public void closeWindow() {
+        driver.close();
+    }
+
     public Boolean goToHomepage() {
         try {
             loadProperties();
@@ -101,5 +105,9 @@ public class BasePage {
 
     public Set<String> getWindowHandles() {
         return driver.getWindowHandles();
+    }
+
+    public int getNumberOfOpenWindows() {
+        return driver.getWindowHandles().size();
     }
 }

@@ -88,4 +88,13 @@ public class SandboxTests extends BaseTest {
         String pageTitle = sandboxPage.getPageTitle();
         assertTrue(pageTitle.contains("Twitter"), "The new window's tile does not match");
     }
+
+    @Test(description = "Closes a second open window")
+    public void testCloseSecondWindow() {
+        sandboxPage.clickTwitterButton();
+        sandboxPage.switchToNewWindow();
+        closeWindow();
+        int numberOfOpenWindows = getNumberOfOpenWindows();
+        assertEquals(numberOfOpenWindows, 1, "Found more than one open window");
+    }
 }
