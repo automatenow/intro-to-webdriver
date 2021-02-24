@@ -1,5 +1,6 @@
 package io.automatenow.tests;
 
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -93,6 +94,18 @@ public class SandboxTests extends BaseTest {
     public void testCloseSecondWindow() {
         sandboxPage.clickTwitterButton();
         sandboxPage.switchToNewWindow();
+        closeWindow();
+        int numberOfOpenWindows = getNumberOfOpenWindows();
+        assertEquals(numberOfOpenWindows, 1, "Found more than one open window");
+    }
+
+    @Test(description = "Working with multiple tabs")
+    public void testMultipleTabs() {
+        openNewTab();
+        sandboxPage.switchToNewWindow();
+        goToUrl("https://www.nasa.gov");
+        String pageTitle = getPageTitle();
+        assertEquals(pageTitle, "NASA", "The page title for the new window did not match");
         closeWindow();
         int numberOfOpenWindows = getNumberOfOpenWindows();
         assertEquals(numberOfOpenWindows, 1, "Found more than one open window");

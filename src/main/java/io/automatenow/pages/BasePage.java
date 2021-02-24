@@ -1,6 +1,7 @@
 package io.automatenow.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -10,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Marco A. Cruz
@@ -109,5 +111,17 @@ public class BasePage {
 
     public int getNumberOfOpenWindows() {
         return driver.getWindowHandles().size();
+    }
+
+    public void openNewTab() {
+        ((JavascriptExecutor) driver).executeScript("window.open()");
+    }
+
+    public void goToUrl(String url) {
+        driver.get(url);
+    }
+
+    public String getPageTitle() {
+        return driver.getTitle();
     }
 }
