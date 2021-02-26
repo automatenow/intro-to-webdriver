@@ -20,6 +20,7 @@ public class SandboxPage extends BasePage {
     private By searchBtn = By.xpath("//button[text()='Search']");
     private By noSearchResults = By.xpath("//h1[text()='Nothing Found']");
     private By twitterBtn = By.xpath("//span[text()='Twitter']");
+    private By map = By.tagName("canvas");
 
     public String getPageTitle() {
         return driver.getTitle();
@@ -136,5 +137,9 @@ public class SandboxPage extends BasePage {
                 driver.switchTo().window(newWindow);
             }
         }
+    }
+
+    public void dragMap(int x, int y) {
+        dragAndDropByOffset(map, x, y);
     }
 }

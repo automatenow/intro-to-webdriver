@@ -1,6 +1,5 @@
 package io.automatenow.tests;
 
-import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -109,5 +108,13 @@ public class SandboxTests extends BaseTest {
         closeWindow();
         int numberOfOpenWindows = getNumberOfOpenWindows();
         assertEquals(numberOfOpenWindows, 1, "Found more than one open window");
+    }
+
+    @Test(description = "Test click and drag operation on a map")
+    public void testClickAndDrag() {
+        int x_coordinate = -300;
+        int y_coordinate = 100;
+
+        sandboxPage.dragMap(x_coordinate, y_coordinate);
     }
 }

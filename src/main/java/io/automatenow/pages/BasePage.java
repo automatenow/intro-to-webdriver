@@ -1,17 +1,14 @@
 package io.automatenow.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Set;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author Marco A. Cruz
@@ -123,5 +120,18 @@ public class BasePage {
 
     public String getPageTitle() {
         return driver.getTitle();
+    }
+
+    /**
+     * Performs a drag-n-drop operation on a given element by a given x,y offset.
+     *
+     * @param locator The element to be interacted with
+     * @param x x-coordinate
+     * @param y Y-coordinate
+     */
+    public void dragAndDropByOffset(By locator, int x, int y) {
+        Actions actions = new Actions(driver);
+        WebElement element = driver.findElement(locator);
+        actions.dragAndDropBy(element, x, y).perform();
     }
 }
