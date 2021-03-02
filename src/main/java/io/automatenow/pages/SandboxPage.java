@@ -21,6 +21,9 @@ public class SandboxPage extends BasePage {
     private By noSearchResults = By.xpath("//h1[text()='Nothing Found']");
     private By twitterBtn = By.xpath("//span[text()='Twitter']");
     private By map = By.tagName("canvas");
+    private By alertBtn = By.id("alert");
+    private By confirmBtn = By.id("confirm");
+    private By confirmPopupResult = By.id("confirmResult");
 
     public String getPageTitle() {
         return driver.getTitle();
@@ -141,5 +144,17 @@ public class SandboxPage extends BasePage {
 
     public void dragMap(int x, int y) {
         dragAndDropByOffset(map, x, y);
+    }
+
+    public void clickAlertPopup() {
+        click(alertBtn);
+    }
+
+    public void clickConfirmPopup() {
+        click(confirmBtn);
+    }
+
+    public String getConfirmPopupSelection() {
+        return getText(confirmPopupResult);
     }
 }

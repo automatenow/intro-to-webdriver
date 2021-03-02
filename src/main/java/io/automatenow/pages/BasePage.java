@@ -134,4 +134,12 @@ public class BasePage {
         WebElement element = driver.findElement(locator);
         actions.dragAndDropBy(element, x, y).perform();
     }
+
+    public void dismissPopup() {
+        driver.switchTo().alert().dismiss();
+    }
+
+    public void acceptPopup() {
+        driver.switchTo().alert().accept();
+    }
 }

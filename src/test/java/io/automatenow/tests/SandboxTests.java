@@ -117,4 +117,15 @@ public class SandboxTests extends BaseTest {
 
         sandboxPage.dragMap(x_coordinate, y_coordinate);
     }
+
+    @Test(description = "Test popup windows")
+    public void testPopups() {
+        sandboxPage.clickAlertPopup();
+        dismissPopup();
+
+        sandboxPage.clickConfirmPopup();
+        acceptPopup();
+        String selectionResult = sandboxPage.getConfirmPopupSelection();
+        assertEquals(selectionResult, "OK it is!", "The popup selection result does not match");
+    }
 }
