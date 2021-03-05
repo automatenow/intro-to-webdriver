@@ -1,7 +1,9 @@
 package io.automatenow.pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -24,6 +26,8 @@ public class SandboxPage extends BasePage {
     private By alertBtn = By.id("alert");
     private By confirmBtn = By.id("confirm");
     private By confirmPopupResult = By.id("confirmResult");
+    private By promptBtn = By.id("prompt");
+    private By promptPopupResult = By.id("promptResult");
 
     public String getPageTitle() {
         return driver.getTitle();
@@ -156,5 +160,13 @@ public class SandboxPage extends BasePage {
 
     public String getConfirmPopupSelection() {
         return getText(confirmPopupResult);
+    }
+
+    public void clickPromptPopup() {
+        click(promptBtn);
+    }
+
+    public void waitForPromptPopupResult(String expectedText) {
+        waitForElementText(promptPopupResult, expectedText);
     }
 }

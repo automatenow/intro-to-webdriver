@@ -118,7 +118,7 @@ public class SandboxTests extends BaseTest {
         sandboxPage.dragMap(x_coordinate, y_coordinate);
     }
 
-    @Test(description = "Test popup windows")
+    @Test(description = "Tests a JavaScript alert and a confirmation box")
     public void testPopups() {
         sandboxPage.clickAlertPopup();
         dismissPopup();
@@ -127,5 +127,14 @@ public class SandboxTests extends BaseTest {
         acceptPopup();
         String selectionResult = sandboxPage.getConfirmPopupSelection();
         assertEquals(selectionResult, "OK it is!", "The popup selection result does not match");
+    }
+
+    @Test(description = "Tests a JavaScript prompt box")
+    public void testPromptPopup() {
+        String name = "Marco";
+        sandboxPage.clickPromptPopup();
+        setAlertText(name);
+        acceptPopup();
+        sandboxPage.waitForPromptPopupResult(String.format("Nice to meet you %s!", name));
     }
 }

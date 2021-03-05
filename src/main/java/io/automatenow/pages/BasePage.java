@@ -3,6 +3,8 @@ package io.automatenow.pages;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -141,5 +143,14 @@ public class BasePage {
 
     public void acceptPopup() {
         driver.switchTo().alert().accept();
+    }
+
+    public void setAlertText(String text) {
+        driver.switchTo().alert().sendKeys(text);
+    }
+
+    public void waitForElementText(By locator, String text) {
+        WebDriverWait wait = new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.textToBe(locator, text));
     }
 }
