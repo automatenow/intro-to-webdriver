@@ -28,6 +28,11 @@ public class SandboxPage extends BasePage {
     private By confirmPopupResult = By.id("confirmResult");
     private By promptBtn = By.id("prompt");
     private By promptPopupResult = By.id("promptResult");
+    private By modalBtn = By.id("myBtn");
+    private By modalName = By.id("g399-name");
+    private By modalEmail = By.id("g399-email");
+    private By modalMsg = By.id("contact-form-comment-g399-message");
+    private By modalSubmitBtn = By.cssSelector("div[class='pum-content popmake-content'] button[type='submit']");
 
     public String getPageTitle() {
         return driver.getTitle();
@@ -168,5 +173,18 @@ public class SandboxPage extends BasePage {
 
     public void waitForPromptPopupResult(String expectedText) {
         waitForElementText(promptPopupResult, expectedText);
+    }
+
+    public SandboxPage openModal() {
+        click(modalBtn);
+        return this;
+    }
+
+    public SandboxPage modalSendMessage(String name, String email, String message) {
+        setText(modalName, name);
+        setText(modalEmail, email);
+        setText(modalMsg, message);
+        click(modalSubmitBtn);
+        return this;
     }
 }

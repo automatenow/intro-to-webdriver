@@ -137,4 +137,14 @@ public class SandboxTests extends BaseTest {
         acceptPopup();
         sandboxPage.waitForPromptPopupResult(String.format("Nice to meet you %s!", name));
     }
+
+    @Test(description = "Tests a JavaScript modal")
+    public void testModal() {
+        String name = "Marco";
+        String email = "info@automatenow.io";
+        String message = "Test Message";
+
+        sandboxPage.openModal()
+                .modalSendMessage(name, email, message);
+    }
 }
