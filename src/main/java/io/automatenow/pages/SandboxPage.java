@@ -33,6 +33,7 @@ public class SandboxPage extends BasePage {
     private By modalEmail = By.id("g399-email");
     private By modalMsg = By.id("contact-form-comment-g399-message");
     private By modalSubmitBtn = By.cssSelector("div[class='pum-content popmake-content'] button[type='submit']");
+    private By hover = By.id("mouse_over");
 
     public String getPageTitle() {
         return driver.getTitle();
@@ -186,5 +187,14 @@ public class SandboxPage extends BasePage {
         setText(modalMsg, message);
         click(modalSubmitBtn);
         return this;
+    }
+
+    public SandboxPage doHover() {
+        hoverOverElement(hover);
+        return this;
+    }
+
+    public String getHoverText() {
+        return getText(hover);
     }
 }

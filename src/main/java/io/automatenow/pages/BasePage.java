@@ -153,4 +153,10 @@ public class BasePage {
         WebDriverWait wait = new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.textToBe(locator, text));
     }
+
+    public void hoverOverElement(By locator) {
+        WebElement element = driver.findElement(locator);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(element).perform();
+    }
 }
