@@ -197,4 +197,9 @@ public class SandboxPage extends BasePage {
     public String getHoverText() {
         return getText(hover);
     }
+
+    public SandboxPage scrollMapIntoView() {
+        scrollElementIntoView(map);
+        return this;
+    }
 }

@@ -159,4 +159,10 @@ public class BasePage {
         Actions actions = new Actions(driver);
         actions.moveToElement(element).perform();
     }
+
+    public void scrollElementIntoView(By locator) {
+        WebElement element = driver.findElement(locator);
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("arguments[0].scrollIntoView();", element);
+    }
 }

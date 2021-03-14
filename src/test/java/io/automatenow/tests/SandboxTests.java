@@ -160,4 +160,9 @@ public class SandboxTests extends BaseTest {
         String hoverText = sandboxPage.getHoverText();
         assertEquals(hoverText, "You did it!", "Hover text did not match expected value");
     }
+
+    @Test(description = "Tests scrolling an element into view")
+    public void testScrollElementIntoView() {
+        sandboxPage.scrollMapIntoView();
+    }
 }
