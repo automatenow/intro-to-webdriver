@@ -165,4 +165,12 @@ public class SandboxTests extends BaseTest {
     public void testScrollElementIntoView() {
         sandboxPage.scrollMapIntoView();
     }
+
+    @Test(description = "Tests scrolling a webpage")
+    public void testScrollPage() {
+        // Scroll down
+        scrollPage(0, 500);
+        // Scroll up
+        scrollPage(0,-500);
+    }
 }

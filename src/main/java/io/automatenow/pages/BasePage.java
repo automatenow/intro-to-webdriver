@@ -165,4 +165,15 @@ public class BasePage {
         JavascriptExecutor executor = (JavascriptExecutor)driver;
         executor.executeScript("arguments[0].scrollIntoView();", element);
     }
+
+    /**
+     * Scrolls the document by the specified number of pixels.
+     *
+     * @param x How many pixels to scroll by, along the x-axis (horizontal).
+     * @param y How many pixels to scroll by, along the y-axis (vertical).
+     */
+    public void scrollPage(int x, int y) {
+        JavascriptExecutor executor = (JavascriptExecutor)driver;
+        executor.executeScript("window.scrollBy(" + x + "," + y + ");");
+    }
 }
