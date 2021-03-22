@@ -20,4 +20,9 @@ public class HomepageTests extends BaseTest {
         String greeting = homePage.getWelcomeMessage();
         assertTrue(greeting.contains("Welcome"), "Welcome message did not match");
     }
+
+    @Test(description = "Tests selecting a submenu")
+    public void testSelectSubmenu() {
+        navBar.selectIntroToSeleniumWebDriver();
+    }
 }
