@@ -28,7 +28,7 @@ public class BasePage {
 
         try {
             properties = new Properties();
-            fis = new FileInputStream("C:\\Automation\\Automatenow\\introtowebdriver\\src\\main\\java\\io\\automatenow\\cofig\\config.properties");
+            fis = new FileInputStream("src\\main\\java\\io\\automatenow\\cofig\\config.properties");
             properties.load(fis);
 
             browser = properties.getProperty("browser");
