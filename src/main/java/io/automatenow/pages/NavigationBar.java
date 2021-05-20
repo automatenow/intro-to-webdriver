@@ -21,7 +21,7 @@ public class NavigationBar extends BasePage {
 
     public void selectIntroToSeleniumWebDriver() {
         hoverOverElement(vlog);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
+        WebDriverWait wait = new WebDriverWait(driver, 2);
         wait.until(ExpectedConditions.visibilityOfElementLocated(webdriverIntro)).click();
     }
 }

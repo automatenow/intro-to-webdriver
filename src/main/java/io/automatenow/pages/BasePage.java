@@ -125,6 +125,11 @@ public class BasePage {
         return driver.getTitle();
     }
 
+    public boolean waitForPageTitle(String title) {
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        return wait.until(ExpectedConditions.titleContains(title));
+    }
+
     /**
      * Performs a drag-n-drop operation on a given element by a given x,y offset.
      *
@@ -151,7 +156,7 @@ public class BasePage {
     }
 
     public void waitForElementText(By locator, String text) {
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        WebDriverWait wait = new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.textToBe(locator, text));
     }
 
