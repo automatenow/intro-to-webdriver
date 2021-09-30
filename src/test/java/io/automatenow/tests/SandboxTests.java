@@ -1,7 +1,7 @@
 package io.automatenow.tests;
 
 import io.automatenow.pages.*;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -11,7 +11,7 @@ import static org.testng.Assert.*;
  */
 public class SandboxTests extends BaseTest {
 
-    @BeforeClass
+    @BeforeTest
     public void testNavigateToSandboxPage() {
         navBar.selectSandbox();
     }
