@@ -1,5 +1,6 @@
 package io.automatenow.pages;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -10,6 +11,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
@@ -48,6 +50,7 @@ public class BasePage {
 
     private void openBrowser() {
         if (browser.equals("chrome")) {
+            WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
         }
         driver.manage().window().maximize();
