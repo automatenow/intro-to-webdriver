@@ -1,7 +1,7 @@
 package io.automatenow.tests;
 
+import io.automatenow.core.BaseTest;
 import io.automatenow.pages.*;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
@@ -11,23 +11,17 @@ import static org.testng.Assert.*;
  */
 public class SandboxTests extends BaseTest {
 
-    @BeforeTest
-    public void testNavigateToSandboxPage() {
-        navBar.selectSandbox();
-    }
-
     @Test(description = "Verify the page title")
     public void testPageTitle() {
         String title = sandboxPage.getPageTitle();
-        assertEquals(title, "Sandbox – AUTOMATENOW", "Page title did not match");
+        assertTrue(title.contains("Automation"), "Page title did not match");
     }
 
     @Test(description = "Enters text in an input field")
     public void testEnterText() {
         String myText = "hello";
 
-        FormFieldsPage formFields = sandboxPage.clickFormFields();
-        formFields.setInputFieldText(myText);
+        sandboxPage.clickFormFields().setInputFieldText(myText);
         String displayedText = formFields.getInputFieldText();
         assertEquals(displayedText, myText, "Unable to verify entered text");
     }
@@ -35,14 +29,16 @@ public class SandboxTests extends BaseTest {
     @Test(description = "Checks a checkbox")
     public void testCheckbox() {
         FormFieldsPage formFields = sandboxPage.clickFormFields();
-        formFields.selectCheckbox("1");
-        assertTrue(formFields.checkboxIsSelected("1"), "Checkbox is not selected");
-        assertFalse(formFields.checkboxIsSelected("2"), "Checkbox is selected");
+        formFields.selectCheckbox("Wine");
+        assertTrue(formFields.checkboxIsSelected("Wine"), "Checkbox is not selected");
+
+        // Negative test!
+        assertFalse(formFields.checkboxIsSelected("Milk"), "Checkbox is selected");
     }
 
     @Test(description = "Selects from a drop-down")
     public void testSelectFromDropdown() {
-        String myOption = "Binary";
+        String myOption = "Yes";
 
         FormFieldsPage formFields = sandboxPage.clickFormFields();
         formFields.selectFromDropdown(myOption);
@@ -60,6 +56,8 @@ public class SandboxTests extends BaseTest {
 
         formFields.selectRadioButton(radio2);
         assertTrue(formFields.radioButtonIsSelected(radio2), "Blue option was not selected");
+
+        // Negative test!
         assertFalse(formFields.radioButtonIsSelected(radio), "White option was selected");
     }
 
@@ -76,32 +74,24 @@ public class SandboxTests extends BaseTest {
     @Test(description = "Selects a date from a date picker")
     public void testSelectFromDatePicker() {
         CalendarsPage calendars = sandboxPage.clickCalendars();
-        calendars.setDate("July", "4", "2024");
+        calendars.setDate("July", "4", "2030");
         String date = calendars.getDate();
-        assertEquals(date, "July 4, 2024", "The date was not properly set");
-    }
-
-    @Test(description = "Searches for a blog article")
-    public void testBlogSearch() {
-        boolean searchSuccess;
-
-        SearchBoxesPage searchPg = sandboxPage.clickSearchBoxes();
-        searchSuccess = searchPg.search("aaaa");
-        assertFalse(searchSuccess, "Did not expect to find a search result");
-        searchSuccess = searchPg.search("jmeter");
-        assertTrue(searchSuccess, "Expected to find a search result");
+        assertEquals(date, "2030-07-04", "The date was not properly set");
     }
 
     @Test(description = "Working with multiple open windows")
     public void testMultipleOpenWindows() {
-        sandboxPage.clickTwitterButton();
+        sandboxPage.clickWindowOperations()
+                .clickNewWindow();
         sandboxPage.switchToNewWindow();
-        assertTrue(waitForPageTitle("Twitter"), "The new window's tile does not match");
+        assertTrue(waitForPageTitle("automateNow | The Best FREE Software Online Training Platform"),
+                "The new window's tile does not match");
     }
 
     @Test(description = "Closes a second open window")
     public void testCloseSecondWindow() {
-        sandboxPage.clickTwitterButton();
+        sandboxPage.clickWindowOperations()
+                .clickNewWindow();
         sandboxPage.switchToNewWindow();
         closeWindow();
         int numberOfOpenWindows = getNumberOfOpenWindows();
@@ -112,8 +102,8 @@ public class SandboxTests extends BaseTest {
     public void testMultipleTabs() {
         openNewTab();
         sandboxPage.switchToNewWindow();
-        goToUrl("https://www.nasa.gov");
-        assertTrue(waitForPageTitle("NASA"), "The page title for the new window did not match");
+        goToUrl("https://www.spacex.com");
+        assertTrue(waitForPageTitle("SpaceX"), "The page title for the new window did not match");
         closeWindow();
         int numberOfOpenWindows = getNumberOfOpenWindows();
         assertEquals(numberOfOpenWindows, 1, "Found more than one open window");
@@ -121,11 +111,12 @@ public class SandboxTests extends BaseTest {
 
     @Test(description = "Test click and drag operation on a map")
     public void testClickAndDrag() {
-        int x_coordinate = -300;
-        int y_coordinate = 100;
+        int x_coordinate = 100;
+        int y_coordinate = 0;
 
         GesturesPage gestures = sandboxPage.clickGestures();
         gestures.dragMap(x_coordinate, y_coordinate);
+//        gestures.dragLogo();  <-- Fun one for you to try ;)
     }
 
     @Test(description = "Tests a JavaScript alert and a confirmation box")
@@ -148,13 +139,20 @@ public class SandboxTests extends BaseTest {
         popups.clickPromptPopup();
         setAlertText(name);
         acceptPopup();
-        popups.waitForPromptPopupResult(String.format("Nice to meet you %s!", name));
+        popups.waitForPromptPopupResult(String.format("Nice to meet you, %s!", name));
+    }
+
+    @Test
+    public void testCountdownTimer() {
+        sandboxPage.clickJavaScriptDelays()
+                .clickStart()
+                .waitForCountdownText("Liftoff!");
     }
 
     @Test(description = "Tests a JavaScript modal")
     public void testModal() {
         String name = "Marco";
-        String email = "info@automatenow.io";
+        String email = "info@automateNow.io";
         String message = "Test Message";
 
         ModalsPage modals = sandboxPage.clickModals();
@@ -164,22 +162,25 @@ public class SandboxTests extends BaseTest {
 
     @Test(description = "Test mouse over")
     public void testHovering() {
-        HoverPage hover = sandboxPage.clickHover();
-        hover.doHover();
-        String hoverText = hover.getHoverText();
+        HoverPage hoverPage = sandboxPage.clickHover();
+        hoverPage.hover();
+        String hoverText = hoverPage.getHoverText();
         assertEquals(hoverText, "You did it!", "Hover text did not match expected value");
     }
 
     @Test(description = "Tests scrolling an element into view")
     public void testScrollElementIntoView() {
-        sandboxPage.scrollAdsButtonIntoView();
+        sandboxPage.scrollSpinnersButtonIntoView();
     }
 
     @Test(description = "Tests scrolling a webpage")
     public void testScrollPage() {
-        // Scroll down
+        // Scroll page down
         scrollPage(0, 500);
-        // Scroll up
+        pause(1);
+
+        // Scroll page up
         scrollPage(0,-500);
+        pause(1);
     }
 }

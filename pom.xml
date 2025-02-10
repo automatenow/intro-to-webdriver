@@ -28,7 +28,9 @@
     <developers>
         <developer>
             <name>Marco A. Cruz</name>
-            <url>https://linktr.ee/automateNow</url>
+            <email>info@automateNow.io</email>
+            <organization>automateNow LLC</organization>
+            <organizationUrl>https://automateNow.io</organizationUrl>
             <roles>
                 <role>Owner</role>
             </roles>
@@ -42,27 +44,15 @@
 
     <dependencies>
         <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>4.3.1</version>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>7.10.2</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>4.3.1</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>3.141.59</version>
-        </dependency>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.14.3</version>
-            <scope>test</scope>
+            <version>4.28.1</version>
         </dependency>
     </dependencies>
 

@@ -1,7 +1,7 @@
 package io.automatenow.pages;
 
+import io.automatenow.core.BasePage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Select;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -10,16 +10,18 @@ import java.util.Set;
  * @author Marco A. Cruz
  */
 public class SandboxPage extends BasePage {
-    private By adsBtn = By.xpath("//a[contains(text(),'Ads')]");
-    private By twitterBtn = By.xpath("//a[@title='Click to share on Twitter']");
-    private By formFieldsBtn = By.xpath("//a[contains(text(),'Form Fields')]");
-    private By tablesBtn = By.xpath("//a[contains(text(),'Tables')]");
-    private By calendarsBtn = By.xpath("//a[contains(text(),'Calendars')]");
-    private By searchBoxesBtn = By.xpath("//a[contains(text(),'Search Boxes')]");
-    private By gesturesBtn = By.xpath("//a[contains(text(),'Gestures')]");
-    private By popupsBtn = By.xpath("//a[contains(text(),'Popups')]");
-    private By modalsBtn = By.xpath("//a[contains(text(),'Modals')]");
-    private By hoverBtn = By.xpath("//a[contains(text(),'Hover')]");
+    private final By spinnersBtn = By.xpath("//a[contains(text(),'Spinners')]");
+    private final By twitterBtn = By.xpath("//a[@title='Click to share on Twitter']");
+    private final By formFieldsBtn = By.xpath("//a[contains(text(),'Form Fields')]");
+    private final By tablesBtn = By.xpath("//a[contains(text(),'Tables')]");
+    private final By calendarsBtn = By.xpath("//a[contains(text(),'Calendars')]");
+    private final By searchBoxesBtn = By.xpath("//a[contains(text(),'Search Boxes')]");
+    private final By gesturesBtn = By.xpath("//a[contains(text(),'Gestures')]");
+    private final By popupsBtn = By.xpath("//a[contains(text(),'Popups')]");
+    private final By jsDelaysBtn = By.xpath("//a[contains(text(),'JavaScript Delays')]");
+    private final By modalsBtn = By.xpath("//a[contains(text(),'Modals')]");
+    private final By hoverBtn = By.xpath("//a[contains(text(),'Hover')]");
+    private final By windowOpsBtn = By.xpath("//a[contains(text(),'Window Operations')]");
 
     public String getPageTitle() {
         return driver.getTitle();
@@ -31,14 +33,14 @@ public class SandboxPage extends BasePage {
 
     public void switchToNewWindow() {
         // Get current window handle
-        String currentWindow = getWindowHandle();
+        String currentWindow = driver.getWindowHandle();
 
         // Get all window handles
-        Set<String> handles = getWindowHandles();
+        Set<String> handles = driver.getWindowHandles();
 
         // Switch to new window
         Iterator<String> iter = handles.iterator();
-        String newWindow = null;
+        String newWindow;
         while (iter.hasNext()) {
             newWindow = iter.next();
             if (!currentWindow.equals(newWindow)) {
@@ -47,8 +49,8 @@ public class SandboxPage extends BasePage {
         }
     }
 
-    public SandboxPage scrollAdsButtonIntoView() {
-        scrollElementIntoView(adsBtn);
+    public SandboxPage scrollSpinnersButtonIntoView() {
+        scrollElementIntoView(spinnersBtn);
         return this;
     }
 
@@ -58,6 +60,7 @@ public class SandboxPage extends BasePage {
     }
 
     public TablesPage clickTables() {
+        scrollElementIntoView(tablesBtn);
         click(tablesBtn);
         return new TablesPage();
     }
@@ -67,12 +70,19 @@ public class SandboxPage extends BasePage {
         return new CalendarsPage();
     }
 
+    public WindowOperationsPage clickWindowOperations() {
+        scrollElementIntoView(windowOpsBtn);
+        click(windowOpsBtn);
+        return new WindowOperationsPage();
+    }
+
     public SearchBoxesPage clickSearchBoxes() {
         click(searchBoxesBtn);
         return new SearchBoxesPage();
     }
 
     public GesturesPage clickGestures() {
+        scrollElementIntoView(gesturesBtn);
         click(gesturesBtn);
         return new GesturesPage();
     }
@@ -82,12 +92,18 @@ public class SandboxPage extends BasePage {
         return new PopupsPage();
     }
 
+    public JavaScriptDelaysPage clickJavaScriptDelays() {
+        click(jsDelaysBtn);
+        return new JavaScriptDelaysPage();
+    }
+
     public ModalsPage clickModals() {
         click(modalsBtn);
         return new ModalsPage();
     }
 
     public HoverPage clickHover() {
+        scrollElementIntoView(hoverBtn);
         click(hoverBtn);
         return new HoverPage();
     }

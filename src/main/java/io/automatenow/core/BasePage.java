@@ -1,6 +1,5 @@
-package io.automatenow.pages;
+package io.automatenow.core;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -8,12 +7,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
-import java.util.List;
 import java.util.Properties;
-import java.util.Set;
 
 /**
  * @author Marco A. Cruz
@@ -35,8 +31,6 @@ public class BasePage {
 
             browser = properties.getProperty("browser");
             baseUrl = properties.getProperty("baseUrl");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -50,16 +44,23 @@ public class BasePage {
 
     private void openBrowser() {
         if (browser.equals("chrome")) {
-            WebDriverManager.chromedriver().setup();
+//            System.setProperty("webdriver.chrome.driver", "path/to/chromedriver.exe");  // Obsolete
             driver = new ChromeDriver();
         }
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
     }
 
+    /**
+     * Closes all the windows associated with the WebDriver instance and also ends the WebDriver session
+     */
     public void closeBrowser() {
         driver.quit();
     }
 
+    /**
+     * Closes the current window on which the WebDriver instance is focused
+     */
     public void closeWindow() {
         driver.close();
     }
@@ -104,14 +105,6 @@ public class BasePage {
         driver.navigate().back();
     }
 
-    public String getWindowHandle() {
-        return driver.getWindowHandle();
-    }
-
-    public Set<String> getWindowHandles() {
-        return driver.getWindowHandles();
-    }
-
     public int getNumberOfOpenWindows() {
         return driver.getWindowHandles().size();
     }
@@ -129,7 +122,7 @@ public class BasePage {
     }
 
     public boolean waitForPageTitle(String title) {
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         return wait.until(ExpectedConditions.titleContains(title));
     }
 
@@ -141,9 +134,12 @@ public class BasePage {
      * @param y Y-coordinate
      */
     public void dragAndDropByOffset(By locator, int x, int y) {
-        Actions actions = new Actions(driver);
         WebElement element = driver.findElement(locator);
-        actions.dragAndDropBy(element, x, y).perform();
+        new Actions(driver).dragAndDropBy(element, x, y).perform();
+    }
+
+    public void dragAndDrop(WebElement source, WebElement destination) {
+        new Actions(driver).dragAndDrop(source, destination).build().perform();
     }
 
     public void dismissPopup() {
@@ -159,20 +155,45 @@ public class BasePage {
     }
 
     public void waitForElementText(By locator, String text) {
-        WebDriverWait wait = new WebDriverWait(driver, 3);
-        wait.until(ExpectedConditions.textToBe(locator, text));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(12));
+
+        try {
+            // For non-input field text
+            wait.until(ExpectedConditions.textToBe(locator, text));
+        } catch (TimeoutException e) {
+            // For input field text
+            wait.until(ExpectedConditions.textToBePresentInElementValue(locator, text));
+        }
     }
 
-    public void hoverOverElement(By locator) {
+    public void waitForElementValue(By locator, String text) {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(12));
+        wait.until(ExpectedConditions.textToBePresentInElementValue(locator, text));
+    }
+
+    public void hoverElement(By locator) {
         WebElement element = driver.findElement(locator);
-        Actions actions = new Actions(driver);
-        actions.moveToElement(element).perform();
+        new Actions(driver).moveToElement(element).perform();
     }
 
     public void scrollElementIntoView(By locator) {
         WebElement element = driver.findElement(locator);
         JavascriptExecutor executor = (JavascriptExecutor)driver;
-        executor.executeScript("arguments[0].scrollIntoView();", element);
+        executor.executeScript("arguments[0].scrollIntoView({block: \"center\"});", element);
+        pause(1);
+    }
+
+    /**
+     * Pauses the test execution for the specified number of seconds.
+     *
+     * @param seconds The number of seconds to pause.
+     */
+    public void pause(int seconds) {
+        try {
+            Thread.sleep(seconds * 1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**

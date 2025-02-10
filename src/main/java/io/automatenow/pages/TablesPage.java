@@ -1,5 +1,6 @@
 package io.automatenow.pages;
 
+import io.automatenow.core.BasePage;
 import org.openqa.selenium.By;
 
 /**
