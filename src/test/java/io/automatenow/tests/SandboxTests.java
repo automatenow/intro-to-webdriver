@@ -47,18 +47,18 @@ public class SandboxTests extends BaseTest {
 
     @Test(description = "Selects radio buttons")
     public void testSelectRadioButton() {
-        String radio = "White";
+        String radio = "Red";
         String radio2 = "Blue";
 
         FormFieldsPage formFields = sandboxPage.clickFormFields();
         formFields.selectRadioButton(radio);
-        assertTrue(formFields.radioButtonIsSelected(radio), "White option was not selected");
+        assertTrue(formFields.radioButtonIsSelected(radio), "Red option was not selected");
 
         formFields.selectRadioButton(radio2);
         assertTrue(formFields.radioButtonIsSelected(radio2), "Blue option was not selected");
 
         // Negative test!
-        assertFalse(formFields.radioButtonIsSelected(radio), "White option was selected");
+        assertFalse(formFields.radioButtonIsSelected(radio), "Red option was selected");
     }
 
     @Test(description = "Finds the price of an item in a table")
