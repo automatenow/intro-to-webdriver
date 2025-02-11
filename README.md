@@ -1,6 +1,6 @@
 # Java Selenium WebDriver Introduction
 
-Welcome to the Java Selenium WebDriver Introduction repository!\
+Welcome to the Java Selenium WebDriver Introduction repository!
 
 This repository was created by [Marco A. Cruz](http://www.linkedin.com/in/marco-a-cruz) and is designed to help you get started with automating web applications using Selenium WebDriver in Java. Whether you're new to test automation or looking to refine your skills, this repository contains basic examples and structures to kick-start your journey.
 
