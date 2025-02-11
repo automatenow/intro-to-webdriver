@@ -9,9 +9,6 @@ public class JavaScriptDelaysPage extends BasePage {
     private final By startBtn = By.id("start");
 
     public JavaScriptDelaysPage waitForCountdownText(String text) {
-        waitForElementText(countdownTxt, text);
-
-        // OR wait for value!
         waitForElementValue(countdownTxt, text);
 
         return this;
