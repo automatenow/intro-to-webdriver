@@ -11,11 +11,9 @@ import java.util.Set;
  */
 public class SandboxPage extends BasePage {
     private final By spinnersBtn = By.xpath("//a[contains(text(),'Spinners')]");
-    private final By twitterBtn = By.xpath("//a[@title='Click to share on Twitter']");
     private final By formFieldsBtn = By.xpath("//a[contains(text(),'Form Fields')]");
     private final By tablesBtn = By.xpath("//a[contains(text(),'Tables')]");
     private final By calendarsBtn = By.xpath("//a[contains(text(),'Calendars')]");
-    private final By searchBoxesBtn = By.xpath("//a[contains(text(),'Search Boxes')]");
     private final By gesturesBtn = By.xpath("//a[contains(text(),'Gestures')]");
     private final By popupsBtn = By.xpath("//a[contains(text(),'Popups')]");
     private final By jsDelaysBtn = By.xpath("//a[contains(text(),'JavaScript Delays')]");
@@ -25,10 +23,6 @@ public class SandboxPage extends BasePage {
 
     public String getPageTitle() {
         return driver.getTitle();
-    }
-
-    public void clickTwitterButton() {
-        click(twitterBtn);
     }
 
     public void switchToNewWindow() {
@@ -74,11 +68,6 @@ public class SandboxPage extends BasePage {
         scrollElementIntoView(windowOpsBtn);
         click(windowOpsBtn);
         return new WindowOperationsPage();
-    }
-
-    public SearchBoxesPage clickSearchBoxes() {
-        click(searchBoxesBtn);
-        return new SearchBoxesPage();
     }
 
     public GesturesPage clickGestures() {

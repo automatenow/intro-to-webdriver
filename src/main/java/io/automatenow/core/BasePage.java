@@ -176,6 +176,10 @@ public class BasePage {
         new Actions(driver).moveToElement(element).perform();
     }
 
+    /**
+     * Scroll the specified element into the center of the viewport
+     * @param locator The element to scroll into view
+     */
     public void scrollElementIntoView(By locator) {
         WebElement element = driver.findElement(locator);
         JavascriptExecutor executor = (JavascriptExecutor)driver;

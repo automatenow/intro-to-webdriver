@@ -28,8 +28,8 @@ public class SandboxTests extends BaseTest {
 
     @Test(description = "Checks a checkbox")
     public void testCheckbox() {
-        FormFieldsPage formFields = sandboxPage.clickFormFields();
-        formFields.selectCheckbox("Wine");
+        FormFieldsPage formFields = sandboxPage.clickFormFields()
+                .selectCheckbox("Wine");
         assertTrue(formFields.checkboxIsSelected("Wine"), "Checkbox is not selected");
 
         // Negative test!
@@ -40,8 +40,8 @@ public class SandboxTests extends BaseTest {
     public void testSelectFromDropdown() {
         String myOption = "Yes";
 
-        FormFieldsPage formFields = sandboxPage.clickFormFields();
-        formFields.selectFromDropdown(myOption);
+        FormFieldsPage formFields = sandboxPage.clickFormFields()
+                .selectFromDropdown(myOption);
         assertEquals(formFields.getDropdownText(), myOption, "Dropdown option not selected");
     }
 
@@ -50,8 +50,8 @@ public class SandboxTests extends BaseTest {
         String radio = "Red";
         String radio2 = "Blue";
 
-        FormFieldsPage formFields = sandboxPage.clickFormFields();
-        formFields.selectRadioButton(radio);
+        FormFieldsPage formFields = sandboxPage.clickFormFields()
+                .selectRadioButton(radio);
         assertTrue(formFields.radioButtonIsSelected(radio), "Red option was not selected");
 
         formFields.selectRadioButton(radio2);
@@ -73,8 +73,8 @@ public class SandboxTests extends BaseTest {
 
     @Test(description = "Selects a date from a date picker")
     public void testSelectFromDatePicker() {
-        CalendarsPage calendars = sandboxPage.clickCalendars();
-        calendars.setDate("July", "4", "2030");
+        CalendarsPage calendars = sandboxPage.clickCalendars()
+                .setDate("July", "4", "2030");
         String date = calendars.getDate();
         assertEquals(date, "2030-07-04", "The date was not properly set");
     }
@@ -114,19 +114,18 @@ public class SandboxTests extends BaseTest {
         int x_coordinate = 100;
         int y_coordinate = 0;
 
-        GesturesPage gestures = sandboxPage.clickGestures();
-        gestures.dragMap(x_coordinate, y_coordinate);
-//        gestures.dragLogo();  <-- Fun one for you to try ;)
+        sandboxPage.clickGestures()
+                .dragMap(x_coordinate, y_coordinate);
     }
 
     @Test(description = "Tests a JavaScript alert and a confirmation box")
     public void testPopups() {
-        PopupsPage popups = sandboxPage.clickPopups();
-        popups.clickAlertPopup();
+        PopupsPage popups = sandboxPage.clickPopups()
+                .clickAlertPopup();
         dismissPopup();
 
-        popups.clickConfirmPopup();
-        acceptPopup();
+        popups.clickConfirmPopup()
+                .acceptPopup();
         String selectionResult = popups.getConfirmPopupSelection();
         assertEquals(selectionResult, "OK it is!", "The popup selection result does not match");
     }
@@ -135,14 +134,14 @@ public class SandboxTests extends BaseTest {
     public void testPromptPopup() {
         String name = "Marco";
 
-        PopupsPage popups = sandboxPage.clickPopups();
-        popups.clickPromptPopup();
+        PopupsPage popups = sandboxPage.clickPopups()
+                .clickPromptPopup();
         setAlertText(name);
         acceptPopup();
         popups.waitForPromptPopupResult(String.format("Nice to meet you, %s!", name));
     }
 
-    @Test
+    @Test(description = "Tests a JavaScript countdown timer")
     public void testCountdownTimer() {
         sandboxPage.clickJavaScriptDelays()
                 .clickStart()
@@ -155,15 +154,15 @@ public class SandboxTests extends BaseTest {
         String email = "info@automateNow.io";
         String message = "Test Message";
 
-        ModalsPage modals = sandboxPage.clickModals();
-        modals.openModal()
+        sandboxPage.clickModals()
+                .openModal()
                 .modalSendMessage(name, email, message);
     }
 
     @Test(description = "Test mouse over")
     public void testHovering() {
-        HoverPage hoverPage = sandboxPage.clickHover();
-        hoverPage.hover();
+        HoverPage hoverPage = sandboxPage.clickHover()
+                .hover();
         String hoverText = hoverPage.getHoverText();
         assertEquals(hoverText, "You did it!", "Hover text did not match expected value");
     }

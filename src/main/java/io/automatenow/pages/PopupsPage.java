@@ -13,20 +13,23 @@ public class PopupsPage extends BasePage {
     private final By promptBtn = By.id("prompt");
     private final By promptPopupResult = By.id("promptResult");
 
-    public void clickAlertPopup() {
+    public PopupsPage clickAlertPopup() {
         click(alertBtn);
+        return this;
     }
 
-    public void clickConfirmPopup() {
+    public PopupsPage clickConfirmPopup() {
         click(confirmBtn);
+        return this;
     }
 
     public String getConfirmPopupSelection() {
         return getText(confirmPopupResult);
     }
 
-    public void clickPromptPopup() {
+    public PopupsPage clickPromptPopup() {
         click(promptBtn);
+        return this;
     }
 
     public void waitForPromptPopupResult(String expectedText) {
